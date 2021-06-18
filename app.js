@@ -1,8 +1,6 @@
 const express = require("express");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-const { urlencoded } = require("express");
-
 const app = express();
 
 app.set("view engine", "ejs");
@@ -10,6 +8,18 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
+
+//MongoDB Setup
+const url = "mongodb://localhost:27017/wikiDB";
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const articleSchema = {
+  title: String,
+  content: String,
+};
+
+const Article = mongoose.model("Article", articleSchema);
 
 //TODO
 
